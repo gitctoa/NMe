@@ -70,8 +70,8 @@ waitlistForm.addEventListener("submit", (e) => {
       showToast("failure");
     } finally {
       btn.innerHTML = btnOldHTML;
-      emailCtn.disabled = true;
-      btn.disabled = true;
+      emailCtn.disabled = false;
+      btn.disabled = false;
     }
        
   }
