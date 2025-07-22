@@ -37,8 +37,9 @@ waitlistForm.addEventListener("submit", (e) => {
   const email = document.querySelector(".email-ctn").value;
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const data = { timeZone: timeZone, email: email };
+  
   fetch(
-    "https://script.google.com/macros/s/AKfycbzMQeSxtBsYrdHhckSnkPnsU9e0Zh7pfXgBtmEsKlIz1TzqYbG5q019bCDQXqGR8Ay-/exec",
+    "https://script.google.com/macros/s/AKfycbw9P7Tdk4L4EUJka1m_qjEEBAQyqJx17ZDlNUrnW0jFArWNGYhuAtBRRtlT7Imhmx-V/exec",
     {
       method: "POST",
       body: JSON.stringify(data),
