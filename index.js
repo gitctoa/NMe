@@ -39,7 +39,7 @@ waitlistForm.addEventListener("submit", (e) => {
   const data = { timeZone: timeZone, email: email };
 
   fetch(
-    "https://script.google.com/macros/s/AKfycbzk5YYzB8Pkgrs2uRypgStCyeer_BCWodJgADn6HfcH-Rr17RgobRQoxBwPm2sGcfrA/exec",
+    "https://script.google.com/macros/s/AKfycbzGangP2m9vcs1NQfV01YZRrQzvvJvnNfRrLntP1poQOT-bE2X8ZoUJOsU_I9rRdC5B/exec",
     {
       method: "POST",
       body: JSON.stringify(data),
