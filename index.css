@@ -113,7 +113,7 @@ body {
 #toast {
     user-select: none;
     visibility: hidden;
-    min-width: 250px;
+    min-width: fit-content;
     background-color: #333;
     color: #efefef;
     text-align: center;
@@ -475,7 +475,9 @@ body {
 }
 
 .spinner {
-    animation: spin 1s linear infinite;
+    transition: all 0.3s ease;
+    width: var(--font-sizes-xs-text);
+    animation: spin 2s linear infinite;
 }
 
 .join-btn:hover {
