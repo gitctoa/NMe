@@ -1,3 +1,20 @@
+function resetUrl(classNameString){
+  document.querySelectorAll(classNameString).forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = item.getAttribute("href");
+      const target = document.querySelector(href);
+
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+      history.replaceState(null, null, " ");
+    });
+  });
+}
+
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.utils.toArray(".bento-card").forEach((card) => {
@@ -32,7 +49,6 @@ waitlistForm.addEventListener("submit", (e) => {
   )
     .then((response) => response.text())
     .then((result) => {
-      console.log("Server returned:", result); // ← View this in browser console
       if (result === "EXISTS") {
         showToast("exists");
       } else if (result === "OK") {
@@ -71,7 +87,6 @@ function showToast(message) {
       toast.classList.remove("show");
     }, 2000);
   } else if (message === "failure") {
-    console.log("FAIL");
     toast.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
                             </svg>
@@ -130,16 +145,18 @@ function handleMediaQuery(e) {
         }
       });
     });
+    resetUrl(".menu-item-txt")
   } else {
     btn.innerHTML = "Join the Waitlist";
     waitlist.classList.remove("arrow");
     nav.classList.remove("arrow");
-    nav.innerHTML = `<div class="logo-ctn">LOGO</div>
+    nav.innerHTML = `<div class="logo-ctn">N'Me</div>
                      <div class="menu-items">
                         <div class="menu-item menu-item-01"><a class="menu-item-txt" href="#feature-section">Features</a></div>
                         <div class="menu-item menu-item-02"><a class="menu-item-txt" href="#waitlist">Waitlist</a></div>
                         <div class="menu-item menu-item-03"><a class="menu-item-txt" href="#footer-section">Contact</a></div>
                      </div>`;
+    resetUrl(".menu-item-txt")
   }
 }
 
