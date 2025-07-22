@@ -37,7 +37,7 @@ waitlistForm.addEventListener("submit", (e) => {
   const emailCtn = document.querySelector(".email-ctn");
   const email = emailCtn.value;
   const btn = document.querySelector(".join-btn");
-  payload=`${window.location.origin}|${email}`
+  const payload=`${window.location.origin}|${email}`
   btnOldHTML=btn.innerHTML
   async function appendEmail() {
     emailCtn.disabled=true;
