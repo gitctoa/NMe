@@ -46,7 +46,7 @@ waitlistForm.addEventListener("submit", (e) => {
                     </svg>`;
     try {
       const result = await fetch(
-        "https://script.google.com/macros/s/AKfycbxV7JDCznL5Vmh7XKEsk6DvGjkMN9bGGvP9s76gdj50OhCB6MkiZUYpeWsB3MmqWckB/exec",
+        "https://script.google.com/macros/s/AKfycbysLsbGc9fuo2peLb7IzuK66jS7ibqBKXOLRuU74fBgRh7iwFySyzwNcRk9PQA6O1-x/exec",
         {
           method: "POST",
           headers: {
