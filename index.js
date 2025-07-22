@@ -42,10 +42,11 @@ waitlistForm.addEventListener("submit", (e) => {
     "https://script.google.com/macros/s/AKfycbwJRMfsr3vySgwT-lZZRIhdSPd8Yd-pc0SXPz_tXzTfDIrdZ42gfkHc8rcmUVN-VBt7/exec",
     {
       method: "POST",
-      body: JSON.stringify(data),
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data)
     }
   )
     .then((response) => response.text())
