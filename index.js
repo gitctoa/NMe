@@ -36,13 +36,12 @@ waitlistForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = document.querySelector(".email-ctn").value;
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const data = { timeZone: timeZone, email: email };
+  const data = [{ timeZone: timeZone, email: email }] ;
 
   fetch(
-    "https://script.google.com/macros/s/AKfycbzPseIG83MEpGXk4iZsrlFOoRjmS-qev-vqiV_KdFP6Q6q4Hxz-Gru1-nuWBm9mO8IJ/exec",
+    "https://sheetdb.io/api/v1/YOUR_API_KEY",
     {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
