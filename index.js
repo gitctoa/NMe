@@ -42,7 +42,6 @@ waitlistForm.addEventListener("submit", (e) => {
     "https://script.google.com/macros/s/AKfycbxQNsUsk2faYMSg9cahwOm1cfWtXBEAcG-Xk72V_9aMC1utuilIa-gshUoZWCWgkcNt/exec",
     {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
