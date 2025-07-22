@@ -39,11 +39,11 @@ waitlistForm.addEventListener("submit", (e) => {
   const data = [{ timeZone: timeZone, email: email }] ;
 
   fetch(
-    "https://sheetdb.io/api/v1/YOUR_API_KEY",
+    "https://script.google.com/macros/s/AKfycbxExS06Y6BCRzvDny81SOy4aDRrhubooYQR57uueP2hXONTSj4GTA3IZy2HSTgM61vz/exec",
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "text/plain; charset=UTF-8",
       },
       body: JSON.stringify(data),
     }
