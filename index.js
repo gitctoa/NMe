@@ -1,0 +1,147 @@
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".bento-card").forEach((card) => {
+  gsap.to(card, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: card,
+      start: "top 90%",
+      toggleActions: "play none none none",
+    },
+  });
+});
+
+const waitlistForm = document.querySelector(".waitlist-ctn");
+waitlistForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.querySelector(".email-ctn").value;
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const data = { timeZone: timeZone, email: email };
+  fetch(
+    "https://script.google.com/macros/s/AKfycbyyI_S-_9ZmLUFoMFIZcMcFde1_zHkzV_GC4kbNiV6eWqMKkVAofW_Cq2uGXuKhOH6H/exec",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((response) => response.text())
+    .then((result) => {
+      console.log("Server returned:", result); // ← View this in browser console
+      if (result === "EXISTS") {
+        showToast("exists");
+      } else if (result === "OK") {
+        showToast("success");
+      } else {
+        showToast("failure");
+      }
+    })
+    .catch((error) => {
+      showToast("failure");
+    });
+});
+
+function showToast(message) {
+  const toast = document.querySelector("#toast");
+
+  if (message === "success") {
+    toast.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#28a745" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+                </svg>
+                <span>Successfully added to waitlist!</span>`;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2000);
+  } else if (message === "exists") {
+    toast.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#efefef" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+  <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+</svg>
+                <span>You're already on the waitlist.</span>`;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2000);
+  } else if (message === "failure") {
+    console.log("FAIL");
+    toast.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                            </svg>
+                <span>Something went wrong. Please try again.</span>`;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2000);
+  }
+}
+
+// MOBILE DEVICES MEDIA QUERY
+const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+function handleMediaQuery(e) {
+  const waitlist = document.getElementById("waitlist");
+  const btn = document.querySelector(".join-btn");
+  const nav = document.querySelector(".navigation-menu");
+  if (e.matches) {
+    // WAITLIST UPDATE
+    btn.innerHTML = `<img src="/images/arrow.svg">`;
+    waitlist.classList.add("arrow");
+
+    // NAV UPDATE
+    nav.innerHTML = `<div class="mobile-menu-items">
+                        <div class="mobile-menu-item mobile-menu-item-01"><a class="menu-item-txt" href="#feature-section">Features</a></div>
+                        <div class="mobile-menu-item mobile-menu-item-02"><a class="menu-item-txt" href="#waitlist">Waitlist</a></div>
+                        <div class="mobile-menu-item mobile-menu-item-03"><a class="menu-item-txt" href="#footer-section">Contact</a></div>
+                     </div>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="nav-arrow" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>`;
+    nav.classList.add("arrow");
+    const navArrow = document.querySelector(".nav-arrow");
+    const navMenu = document.querySelector(".navigation-menu.arrow");
+    if (window.Headroom) {
+      const headroom = new window.Headroom(navMenu);
+      headroom.init();
+    }
+
+    let menuOpen = false;
+    if (navArrow && nav) {
+      navArrow.addEventListener("click", () => {
+        navArrow.classList.toggle("click");
+        nav.classList.toggle("click");
+        menuOpen = !menuOpen;
+      });
+    }
+    document.querySelectorAll(".mobile-menu-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        if (navArrow && nav) {
+          navArrow.classList.remove("click");
+          nav.classList.remove("click");
+          menuOpen = false;
+        }
+      });
+    });
+  } else {
+    btn.innerHTML = "Join the Waitlist";
+    waitlist.classList.remove("arrow");
+    nav.classList.remove("arrow");
+    nav.innerHTML = `<div class="logo-ctn">LOGO</div>
+                     <div class="menu-items">
+                        <div class="menu-item menu-item-01"><a class="menu-item-txt" href="#feature-section">Features</a></div>
+                        <div class="menu-item menu-item-02"><a class="menu-item-txt" href="#waitlist">Waitlist</a></div>
+                        <div class="menu-item menu-item-03"><a class="menu-item-txt" href="#footer-section">Contact</a></div>
+                     </div>`;
+  }
+}
+
+mediaQuery.addEventListener("change", handleMediaQuery); // Modern browsers
+handleMediaQuery(mediaQuery); // Call initially
