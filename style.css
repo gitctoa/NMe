@@ -79,7 +79,7 @@ button {
 html {
     scroll-behavior: smooth;
     /* 1rem=10px */
-    font-size: 62.5%; 
+    font-size: 62.5%;
 }
 
 body {
@@ -192,7 +192,7 @@ body {
     transition: all 0.3s ease;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    
+
 }
 
 
@@ -1027,7 +1027,7 @@ body {
 .sm-icon {
     width: var(--font-sizes-xs-text);
     height: var(--font-sizes-xs-text);
-    
+
 
 }
 
@@ -1245,6 +1245,13 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    input,
+    textarea,
+    button {
+        font-size: 16px !important;
+    }
+
     .hero-section {
 
         margin-top: var(--spacings-xl2);
