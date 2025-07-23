@@ -1246,8 +1246,7 @@ body {
 
 @media (max-width: 768px) {
 
-    input,
-    textarea {
+    input[type="email"]{
         font-size: 16px !important;
     }
 
