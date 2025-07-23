@@ -131,6 +131,7 @@ function handleMediaQuery(e) {
   const btn = document.querySelector(".join-btn");
   const nav = document.querySelector(".navigation-menu");
   waitlist.style.visibility = "visible";
+  nav.style.visibility = "visible";
   if (e.matches) {
     // WAITLIST JOIN BTN UPDATE
     btn.innerHTML = `<img src="/images/arrow.svg" alt="" role="presentation">`;

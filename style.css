@@ -175,6 +175,7 @@ body {
 /* #region Navigation Menu (All Screen Sizes) */
 .navigation-menu {
     /* Navigation Menu */
+    visibility: hidden;
     -webkit-user-select: none;
     user-select: none;
     display: flex;
