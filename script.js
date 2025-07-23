@@ -1,4 +1,8 @@
-function resetUrl(classNameString){
+//Design & Development by yk.dev | https://github.com/ykdotdev/N'mE
+
+import sheetURL from "./config.js";
+/* #region  RESET URL ON MENU ITEM CLICK */
+function resetUrl(classNameString) {
   document.querySelectorAll(classNameString).forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
@@ -12,9 +16,10 @@ function resetUrl(classNameString){
     });
   });
 }
+/* #endregion */
 
 
-
+/* #region  GSAP */
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.utils.toArray(".bento-card").forEach((card) => {
@@ -30,57 +35,10 @@ gsap.utils.toArray(".bento-card").forEach((card) => {
     },
   });
 });
+/* #endregion */
 
-const waitlistForm = document.querySelector(".waitlist-ctn");
-waitlistForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const emailCtn = document.querySelector(".email-ctn");
-  const email = emailCtn.value;
-  const btn = document.querySelector(".join-btn");
-  const payload=`${window.location.origin}|${email}`
-  btnOldHTML=btn.innerHTML
-  async function appendEmail() {
-    emailCtn.disabled=true;
-    btn.disabled = true;
-    btn.classList.add("disabled");
-    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="spinner " viewBox="0 0 16 16">
-                      <path d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z"/>
-                    </svg>`;
-    try {
-      const result = await fetch(
-        "https://script.google.com/macros/s/AKfycbysLsbGc9fuo2peLb7IzuK66jS7ibqBKXOLRuU74fBgRh7iwFySyzwNcRk9PQA6O1-x/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain; charset=UTF-8",
-          },
-          body: payload,
-        }
-      );
-      const text = await result.text();
-      console.log("done")
-      if (text === "EXISTS") {
-        showToast("exists");
-      } else if (text === "OK") {
-        showToast("success");
-      } else {
-        showToast("failure");
-      }
-    } catch (err){
-      console.log(err)
-      showToast("failure");
-    } finally {
-      btn.innerHTML = btnOldHTML;
-      emailCtn.disabled = false;
-      btn.disabled = false;
-      btn.classList.remove("disabled")
-    }
-       
-  }
-  appendEmail()
- 
-});
 
+/* #region  Waitlist Functionality */
 function showToast(message) {
   const toast = document.querySelector("#toast");
 
@@ -118,7 +76,54 @@ function showToast(message) {
   }
 }
 
-// MOBILE DEVICES MEDIA QUERY
+const waitlistForm = document.querySelector(".waitlist-ctn");
+waitlistForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const emailCtn = document.querySelector("#email-ctn");
+  const email = emailCtn.value;
+  const btn = document.querySelector(".join-btn");
+  const payload = `${window.location.origin}|${email}`;
+  const btnOldHTML = btn.innerHTML;
+  async function appendEmail() {
+    emailCtn.disabled = true;
+    btn.disabled = true;
+    btn.classList.add("disabled");
+    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="spinner " viewBox="0 0 16 16">
+                      <path d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z"/>
+                    </svg>`;
+    try {
+      const result = await fetch(sheetURL,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain; charset=UTF-8",
+          },
+          body: payload,
+        }
+      );
+      const text = await result.text();
+      if (text === "EXISTS") {
+        showToast("exists");
+      } else if (text === "OK") {
+        showToast("success");
+      } else {
+        showToast("failure");
+      }
+    } catch (err) {
+      showToast("failure");
+    } finally {
+      btn.innerHTML = btnOldHTML;
+      emailCtn.disabled = false;
+      btn.disabled = false;
+      btn.classList.remove("disabled");
+    }
+  }
+  appendEmail();
+});
+/* #endregion */
+
+
+/* #region  MOBILE DEVICES MEDIA QUERY (<768px) */
 const mediaQuery = window.matchMedia("(max-width: 768px)");
 
 function handleMediaQuery(e) {
@@ -126,11 +131,11 @@ function handleMediaQuery(e) {
   const btn = document.querySelector(".join-btn");
   const nav = document.querySelector(".navigation-menu");
   if (e.matches) {
-    // WAITLIST UPDATE
-    btn.innerHTML = `<img src="/images/arrow.svg">`;
+    // WAITLIST JOIN BTN UPDATE
+    btn.innerHTML = `<img src="/images/arrow.svg" alt="" role="presentation">`;
     waitlist.classList.add("arrow");
 
-    // NAV UPDATE
+    // NAV UPDATE (MOBILE + DESKTOP)
     nav.innerHTML = `<div class="mobile-menu-items">
                         <div class="mobile-menu-item mobile-menu-item-01"><a class="menu-item-txt" href="#feature-section">Features</a></div>
                         <div class="mobile-menu-item mobile-menu-item-02"><a class="menu-item-txt" href="#waitlist">Waitlist</a></div>
@@ -164,20 +169,22 @@ function handleMediaQuery(e) {
         }
       });
     });
-    resetUrl(".menu-item-txt")
+    resetUrl(".menu-item-txt");
   } else {
     btn.innerHTML = "Join the Waitlist";
     waitlist.classList.remove("arrow");
     nav.classList.remove("arrow");
-    nav.innerHTML = `<div class="logo-ctn">N'Me</div>
+    nav.innerHTML = `<div class="logo-ctn">N'mE</div>
                      <div class="menu-items">
                         <div class="menu-item menu-item-01"><a class="menu-item-txt" href="#feature-section">Features</a></div>
                         <div class="menu-item menu-item-02"><a class="menu-item-txt" href="#waitlist">Waitlist</a></div>
                         <div class="menu-item menu-item-03"><a class="menu-item-txt" href="#footer-section">Contact</a></div>
                      </div>`;
-    resetUrl(".menu-item-txt")
+    resetUrl(".menu-item-txt");
   }
 }
 
-mediaQuery.addEventListener("change", handleMediaQuery); // Modern browsers
-handleMediaQuery(mediaQuery); // Call initially
+mediaQuery.addEventListener("change", handleMediaQuery);
+handleMediaQuery(mediaQuery);
+
+/* #endregion */
